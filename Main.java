@@ -1,48 +1,70 @@
 package geekbrain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class Main {
 
     public static void main(String[] args) {
-
-        Employer[] emparray = {
-                new Employer("Иванов Иван", "Инженер", "ivivan@mailbox.com", "892312312", 30000.00, 30),
-                new Employer("Карпов Стас", "Программист", "skarp@mailbox.com", "892358937", 90000.00, 34),
-                new Employer("Рыбаков Даниил", "Аналитик", "drybak@mailbox.com", "892356567", 50000.00, 50),
-                new Employer("Артемьева Яна", "Секретарь", "yaartem@mailbox.com", "892312345", 25000.00, 29),
-                new Employer("Кирьянов Леонид", "Директор", "boss@mailbox.com", "892311111", 100000.00, 58),
-        };
-        for (Employer employer : emparray) {
-            if (employer.getAge() > 40) employer.printEmployer();
+	String[] words = {
+        "Тверь",
+        "Ржев",
+        "Торопец",
+        "Торжок",
+        "Кимры",
+        "Конаково",
+         "Удомля",
+         "Бежецк",
+         "Ржев",
+         "Осташков",
+         "Ржев",
+         "Калязин",
+         "Торопец",
+         "Удомля",
+         "Озёрный",
+         "Кувшиново",
+         "Кимры",
+         "Старица",
+         "Максатиха",
+         "Калязин"};
+        ArrayList<String> unique_words = new ArrayList<>();
+        HashMap<String, Integer> counter = new HashMap<>();
+        int x = 0;
+	for (int i = 0; i < words.length; i++) {
+	    if (!unique_words.contains(words[i])){
+	        unique_words.add(words[i]);
+	        counter.put(words[i], 1);
+	    }
+	    else
+        {
+            x = counter.get(words[i]);
+            x = x +1;
+            counter.replace(words[i], x);
         }
     }
+    Iterator iterator = unique_words.iterator();
+	while (iterator.hasNext()) {
+	    System.out.println(iterator.next());
+        }
+	//System.out.println(counter);
+        for (HashMap.Entry<String, Integer> pair : counter.entrySet())
+        {
+            String key = pair.getKey();
+            int value = pair.getValue();
+            System.out.println("Количество слов " + key + " = " + value);
+        }
+
+        Phone_direct book = new Phone_direct();
+        book.add("Петров", "8-555-777-23");
+        book.add("Маслов", "8-555-798-56");
+        book.add("Петров", "8-555-777-23");
+        book.add("Жуков", "8-555-688-20");
+        book.add("Петров", "8-555-000-23");
+
+        System.out.println("Номер телефона Петрова: " + book.get("Петров"));
+        System.out.println("Номер телефона Жукова: " + book.get("Жуков"));
+    }
+
+
 }
-    class Employer {
-        private String fio;
-        private String position;
-        private String email;
-        private String phone;
-        private double pay;
-        private int age;
-
-        public Employer(String fio, String position, String email, String phone, double pay, int age) {
-            this.fio = fio;
-            this.position = position;
-            this.email = email;
-            this.phone = phone;
-            this.pay = pay;
-            this.age = age;
-        }
-
-        public void printEmployer() {
-            System.out.print("Фамилия, имя: " + fio + "; ");
-            System.out.print("Должность: " + position + "; ");
-            System.out.print("Email: " + email + "; ");
-            System.out.print("Телефон: " + phone + "; ");
-            System.out.print("Зарплата: " + pay + "; ");
-            System.out.println("Возраст: " + age + ".");
-        }
-
-        public int getAge() {
-            return age;
-        }
-    }
